@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dashboard — ParkDesk</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">P</div>
+      <div class="brand-text">ParkDesk<span>Parking management</span></div>
+    </div>
+    <a class="nav-link active" href="dashboard.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>Dashboard</span></a>
+    <a class="nav-link" href="entry.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg><span>Vehicle entry</span></a>
+    <a class="nav-link" href="exit.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"/><path d="M17 8l5 4-5 4"/><path d="M22 12H9"/></svg><span>Vehicle exit</span></a>
+    <a class="nav-link" href="records.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 3v3h8V3"/><line x1="8" y1="11" x2="16" y2="11"/><line x1="8" y1="15" x2="16" y2="15"/></svg><span>Records</span></a>
+    <div class="sidebar-footer">
+      <button class="logout-btn" onclick="logout()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg><span>Log out</span></button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="page-header">
+      <div class="header-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.2"/><rect x="14" y="3" width="7" height="7" rx="1.2"/><rect x="3" y="14" width="7" height="7" rx="1.2"/><rect x="14" y="14" width="7" height="7" rx="1.2"/></svg>
+      </div>
+      <div class="header-text">
+        <h1>Dashboard</h1>
+        <p>Live snapshot of today's parking activity.</p>
+      </div>
+    </div>
+
+    <div class="stat-grid" id="statGrid">
+      <!-- filled by JS -->
+    </div>
+
+    <div class="card">
+      <h2>Slot occupancy</h2>
+      <div class="slot-map" id="slotMap"></div>
+    </div>
+  </main>
+</div>
+
+<script src="js/api.js"></script>
+<script>
+  requireLogin();
+
+  async function loadDashboard() {
+    try {
+      const stats = await apiFetch("/dashboard");
+      renderStats(stats);
+    } catch (err) {
+      console.error(err);
+    }
+    try {
+      const slots = await apiFetch("/slots");
+      renderSlots(slots);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  const icons = {
+    grid: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.2"/><rect x="14" y="3" width="7" height="7" rx="1.2"/><rect x="3" y="14" width="7" height="7" rx="1.2"/><rect x="14" y="14" width="7" height="7" rx="1.2"/></svg>',
+    car: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l1.6-5.2A2 2 0 0 1 8.5 5.5h7a2 2 0 0 1 1.9 1.3L19 12"/><rect x="3" y="12" width="18" height="6" rx="2"/><circle cx="7.5" cy="18.5" r="1.6"/><circle cx="16.5" cy="18.5" r="1.6"/></svg>',
+    check: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>',
+    arrowIn: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/><path d="M21 3v18"/></svg>',
+    coin: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 9h3.5a1.8 1.8 0 0 1 0 3.6H9m0 0h4M9 9v6m0-2.4h4"/></svg>'
+  };
+
+  function renderStats(s) {
+    const grid = document.getElementById("statGrid");
+    grid.innerHTML = `
+      <div class="stat-card">
+        <div class="icon-badge">${icons.grid}</div>
+        <div class="label">Total slots</div>
+        <div class="value">${s.totalSlots}</div>
+      </div>
+      <div class="stat-card">
+        <div class="icon-badge">${icons.car}</div>
+        <div class="label">Occupied</div>
+        <div class="value amber">${s.occupied}</div>
+      </div>
+      <div class="stat-card">
+        <div class="icon-badge">${icons.check}</div>
+        <div class="label">Available</div>
+        <div class="value green">${s.available}</div>
+      </div>
+      <div class="stat-card">
+        <div class="icon-badge">${icons.arrowIn}</div>
+        <div class="label">Entries today</div>
+        <div class="value">${s.todayEntries}</div>
+      </div>
+      <div class="stat-card">
+        <div class="icon-badge">${icons.coin}</div>
+        <div class="label">Revenue today</div>
+        <div class="value amber">₹${s.todayRevenue}</div>
+      </div>
+    `;
+  }
+
+  const typeLabels = { bike: "Two-wheeler", car: "Car", heavy: "Bus / Truck" };
+
+  function renderSlots(slots) {
+    const map = document.getElementById("slotMap");
+    map.innerHTML = "";
+    ["bike", "car", "heavy"].forEach((type) => {
+      const group = slots.filter((s) => s.type === type);
+      if (group.length === 0) return;
+      const occupiedCount = group.filter((s) => s.occupied).length;
+
+      const section = document.createElement("div");
+      section.className = "slot-type-group";
+      section.innerHTML = `<h3>${typeLabels[type]} — ${occupiedCount}/${group.length} occupied</h3>`;
+
+      const gridEl = document.createElement("div");
+      gridEl.className = "slot-grid";
+      group.forEach((slot) => {
+        const chip = document.createElement("div");
+        chip.className = "slot-chip " + (slot.occupied ? "occupied" : "free");
+        chip.textContent = slot.id;
+        chip.title = slot.occupied ? "Occupied" : "Free";
+        gridEl.appendChild(chip);
+      });
+
+      section.appendChild(gridEl);
+      map.appendChild(section);
+    });
+  }
+
+  loadDashboard();
+  setInterval(loadDashboard, 15000); // auto-refresh every 15s
+</script>
+</body>
+</html>

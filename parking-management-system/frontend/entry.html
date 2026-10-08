@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vehicle entry — ParkDesk</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">P</div>
+      <div class="brand-text">ParkDesk<span>Parking management</span></div>
+    </div>
+    <a class="nav-link" href="dashboard.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>Dashboard</span></a>
+    <a class="nav-link active" href="entry.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg><span>Vehicle entry</span></a>
+    <a class="nav-link" href="exit.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"/><path d="M17 8l5 4-5 4"/><path d="M22 12H9"/></svg><span>Vehicle exit</span></a>
+    <a class="nav-link" href="records.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 3v3h8V3"/><line x1="8" y1="11" x2="16" y2="11"/><line x1="8" y1="15" x2="16" y2="15"/></svg><span>Records</span></a>
+    <div class="sidebar-footer">
+      <button class="logout-btn" onclick="logout()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg><span>Log out</span></button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="page-header">
+      <div class="header-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg>
+      </div>
+      <div class="header-text">
+        <h1>Vehicle entry</h1>
+        <p>Register an incoming vehicle and assign it a free slot.</p>
+      </div>
+    </div>
+
+    <div class="split-layout">
+      <div>
+        <div class="card">
+          <div id="alert" class="alert alert-error"></div>
+          <div id="success" class="alert alert-success"></div>
+
+          <form id="entryForm" novalidate>
+            <div class="form-grid">
+              <div class="field full">
+                <label for="vehicleNumber">Vehicle number</label>
+                <input type="text" id="vehicleNumber" class="plate-input" placeholder="e.g. DL 05 AB 1234" maxlength="13" />
+                <div class="field-error"></div>
+              </div>
+
+              <div class="field">
+                <label for="type">Vehicle type</label>
+                <select id="type">
+                  <option value="bike">Two-wheeler (₹10/hr)</option>
+                  <option value="car" selected>Car (₹20/hr)</option>
+                  <option value="heavy">Bus / Truck (₹40/hr)</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="phone">Phone number</label>
+                <input type="tel" id="phone" placeholder="Optional, 10 digits" maxlength="10" inputmode="numeric" />
+                <div class="field-error"></div>
+              </div>
+
+              <div class="field full">
+                <label for="ownerName">Owner / driver name</label>
+                <input type="text" id="ownerName" maxlength="60" />
+                <div class="field-error"></div>
+              </div>
+            </div>
+
+            <button class="btn btn-primary" type="submit" id="submitBtn">Assign slot & check in</button>
+          </form>
+        </div>
+
+        <div class="card" id="resultCard" style="display:none;">
+          <h2>Checked in</h2>
+          <p style="color: var(--chalk-300); font-size: 14.5px;">
+            <span class="plate" id="resultPlate" style="font-size: 18px; color: var(--chalk-100);"></span>
+            parked in slot <strong id="resultSlot" style="color: var(--amber-400);"></strong>
+            at <span id="resultTime"></span>.
+          </p>
+        </div>
+      </div>
+
+      <div class="side-illustration">
+        <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Boom barrier rising as a car approaches to enter the parking facility">
+          <rect x="0" y="150" width="240" height="50" fill="#0A0908"/>
+          <line x1="0" y1="176" x2="90" y2="176" stroke="#7A6E60" stroke-width="4" stroke-dasharray="14 10"/>
+          <line x1="150" y1="176" x2="240" y2="176" stroke="#7A6E60" stroke-width="4" stroke-dasharray="14 10"/>
+
+          <rect x="112" y="118" width="12" height="42" rx="3" fill="#1F1A15" stroke="#2C251D" stroke-width="2"/>
+          <g transform="rotate(-58 118 128)">
+            <rect x="118" y="122" width="98" height="11" rx="4" fill="#FBF3E9"/>
+            <rect x="118" y="122" width="13" height="11" fill="#FF7A1A"/>
+            <rect x="144" y="122" width="13" height="11" fill="#FF7A1A"/>
+            <rect x="170" y="122" width="13" height="11" fill="#FF7A1A"/>
+            <rect x="196" y="122" width="13" height="11" fill="#FF7A1A"/>
+          </g>
+
+          <g transform="translate(30 138)">
+            <rect x="0" y="12" width="100" height="24" rx="8" fill="#FF7A1A"/>
+            <path d="M12 12 Q22 -6 52 -6 Q75 -6 84 12 Z" fill="#FF7A1A"/>
+            <path d="M22 9 Q29 -1 51 -1 Q68 -1 77 9 Z" fill="#17130F" opacity="0.55"/>
+            <circle cx="23" cy="38" r="10" fill="#0A0908"/>
+            <circle cx="23" cy="38" r="4" fill="#7A6E60"/>
+            <circle cx="78" cy="38" r="10" fill="#0A0908"/>
+            <circle cx="78" cy="38" r="4" fill="#7A6E60"/>
+          </g>
+
+          <circle cx="200" cy="46" r="20" fill="#0A0908" stroke="#FF7A1A" stroke-width="2.5"/>
+          <text x="200" y="53" text-anchor="middle" font-family="Manrope, sans-serif" font-weight="800" font-size="19" fill="#FF7A1A">P</text>
+        </svg>
+        <p>The barrier lifts automatically once the vehicle is checked in and assigned a free slot.</p>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="js/api.js"></script>
+<script>
+  requireLogin();
+
+  const form = document.getElementById("entryForm");
+  const alertEl = document.getElementById("alert");
+  const successEl = document.getElementById("success");
+  const submitBtn = document.getElementById("submitBtn");
+  const resultCard = document.getElementById("resultCard");
+
+  document.getElementById("phone").addEventListener("input", (e) => {
+    e.target.value = e.target.value.replace(/\D/g, "");
+  });
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    hideAlert(alertEl);
+    hideAlert(successEl);
+    resultCard.style.display = "none";
+
+    const payload = {
+      vehicleNumber: document.getElementById("vehicleNumber").value.replace(/[\s-]/g, "").toUpperCase(),
+      type: document.getElementById("type").value,
+      ownerName: document.getElementById("ownerName").value.trim(),
+      phone: document.getElementById("phone").value.trim()
+    };
+
+    const errors = {
+      vehicleNumber: /^[A-Z]{2}[0-9]{1,2}[A-Z]{1,3}[0-9]{4}$/.test(payload.vehicleNumber) ? "" : "Enter a valid vehicle number, e.g. DL 05 AB 1234.",
+      ownerName: /^[A-Za-z][A-Za-z .'-]{1,59}$/.test(payload.ownerName) ? "" : "Enter a valid name (letters only, 2-60 characters).",
+      phone: !payload.phone || /^[6-9][0-9]{9}$/.test(payload.phone) ? "" : "Enter a valid 10-digit mobile number or leave blank."
+    };
+    let hasError = false;
+    Object.entries(errors).forEach(([id, msg]) => {
+      const wrap = document.getElementById(id).closest(".field");
+      wrap.classList.toggle("invalid", !!msg);
+      wrap.querySelector(".field-error").textContent = msg;
+      if (msg) hasError = true;
+    });
+    if (hasError) return showAlert(alertEl, "Please fix the highlighted fields.");
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Checking in…";
+
+    try {
+      const vehicle = await apiFetch("/vehicles/entry", {
+        method: "POST",
+        body: JSON.stringify(payload)
+      });
+
+      showAlert(successEl, `${vehicle.vehicleNumber} checked in successfully.`, "success");
+      document.getElementById("resultPlate").textContent = vehicle.vehicleNumber;
+      document.getElementById("resultSlot").textContent = vehicle.slotId;
+      document.getElementById("resultTime").textContent = formatDateTime(vehicle.entryTime);
+      resultCard.style.display = "block";
+
+      form.reset();
+      document.getElementById("type").value = "car";
+    } catch (err) {
+      showAlert(alertEl, err.message);
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Assign slot & check in";
+    }
+  });
+</script>
+</body>
+</html>

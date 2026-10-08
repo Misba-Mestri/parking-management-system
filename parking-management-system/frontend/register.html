@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Create account — ParkDesk</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div class="login-wrap">
+
+  <div class="login-illustration">
+    <svg viewBox="0 0 600 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration of a car passing under a raised boom barrier at a parking garage">
+      <defs>
+        <linearGradient id="buildingFace" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#241D17"/>
+          <stop offset="100%" stop-color="#17130F"/>
+        </linearGradient>
+      </defs>
+
+      <!-- parking garage building -->
+      <rect x="60" y="120" width="480" height="270" rx="6" fill="url(#buildingFace)" stroke="#2C251D" stroke-width="2"/>
+      <!-- floor lines -->
+      <line x1="60" y1="190" x2="540" y2="190" stroke="#2C251D" stroke-width="2"/>
+      <line x1="60" y1="260" x2="540" y2="260" stroke="#2C251D" stroke-width="2"/>
+      <line x1="60" y1="330" x2="540" y2="330" stroke="#2C251D" stroke-width="2"/>
+
+      <!-- lit windows, offsets vary for a lived-in feel -->
+      <g>
+        <rect x="90" y="140" width="34" height="34" rx="3" fill="#FF7A1A" opacity="0.85"/>
+        <rect x="140" y="140" width="34" height="34" rx="3" fill="#2C251D"/>
+        <rect x="190" y="140" width="34" height="34" rx="3" fill="#FF7A1A" opacity="0.5"/>
+        <rect x="240" y="140" width="34" height="34" rx="3" fill="#2C251D"/>
+        <rect x="290" y="140" width="34" height="34" rx="3" fill="#FF7A1A" opacity="0.85"/>
+        <rect x="340" y="140" width="34" height="34" rx="3" fill="#2C251D"/>
+        <rect x="390" y="140" width="34" height="34" rx="3" fill="#FF7A1A" opacity="0.5"/>
+        <rect x="440" y="140" width="34" height="34" rx="3" fill="#2C251D"/>
+        <rect x="490" y="140" width="34" height="34" rx="3" fill="#FF7A1A" opacity="0.7"/>
+
+        <rect x="90" y="210" width="34" height="34" rx="3" fill="#2C251D"/>
+        <rect x="140" y="210" width="34" height="34" rx="3" fill="#FF7A1A" opacity="0.6"/>
+        <rect x="190" y="210" width="34" height="34" rx="3" fill="#2C251D"/>
+        <rect x="240" y="210" width="34" height="34" rx="3" fill="#FF7A1A" opacity="0.85"/>
+        <rect x="290" y="210" width="34" height="34" rx="3" fill="#2C251D"/>
+        <rect x="340" y="210" width="34" height="34" rx="3" fill="#FF7A1A" opacity="0.5"/>
+        <rect x="390" y="210" width="34" height="34" rx="3" fill="#2C251D"/>
+        <rect x="440" y="210" width="34" height="34" rx="3" fill="#FF7A1A" opacity="0.7"/>
+        <rect x="490" y="210" width="34" height="34" rx="3" fill="#2C251D"/>
+
+        <rect x="90" y="280" width="34" height="34" rx="3" fill="#FF7A1A" opacity="0.5"/>
+        <rect x="140" y="280" width="34" height="34" rx="3" fill="#2C251D"/>
+        <rect x="190" y="280" width="34" height="34" rx="3" fill="#FF7A1A" opacity="0.85"/>
+        <rect x="240" y="280" width="34" height="34" rx="3" fill="#2C251D"/>
+        <rect x="290" y="280" width="34" height="34" rx="3" fill="#FF7A1A" opacity="0.6"/>
+        <rect x="340" y="280" width="34" height="34" rx="3" fill="#2C251D"/>
+        <rect x="390" y="280" width="34" height="34" rx="3" fill="#FF7A1A" opacity="0.85"/>
+        <rect x="440" y="280" width="34" height="34" rx="3" fill="#2C251D"/>
+        <rect x="490" y="280" width="34" height="34" rx="3" fill="#FF7A1A" opacity="0.5"/>
+      </g>
+
+      <!-- big P sign -->
+      <g>
+        <circle cx="80" cy="80" r="26" fill="#0A0908" stroke="#FF7A1A" stroke-width="3"/>
+        <text x="80" y="91" text-anchor="middle" font-family="Manrope, sans-serif" font-weight="800" font-size="26" fill="#FF7A1A">P</text>
+      </g>
+
+      <!-- ground -->
+      <rect x="0" y="390" width="600" height="130" fill="#0A0908"/>
+      <rect x="0" y="388" width="600" height="4" fill="#2C251D"/>
+      <line x1="0" y1="430" x2="240" y2="430" stroke="#7A6E60" stroke-width="4" stroke-dasharray="18 14"/>
+      <line x1="360" y1="430" x2="600" y2="430" stroke="#7A6E60" stroke-width="4" stroke-dasharray="18 14"/>
+
+      <!-- boom barrier post -->
+      <rect x="284" y="386" width="14" height="60" rx="3" fill="#1F1A15" stroke="#2C251D" stroke-width="2"/>
+      <!-- raised striped arm, pivoting from the post -->
+      <g transform="rotate(-62 291 400)">
+        <rect x="291" y="393" width="150" height="14" rx="4" fill="#FBF3E9"/>
+        <rect x="291" y="393" width="18" height="14" fill="#FF7A1A"/>
+        <rect x="327" y="393" width="18" height="14" fill="#FF7A1A"/>
+        <rect x="363" y="393" width="18" height="14" fill="#FF7A1A"/>
+        <rect x="399" y="393" width="18" height="14" fill="#FF7A1A"/>
+      </g>
+
+      <!-- car driving through -->
+      <g transform="translate(120 405)">
+        <rect x="0" y="16" width="150" height="34" rx="10" fill="#FF7A1A"/>
+        <path d="M18 16 Q34 -8 78 -8 Q112 -8 126 16 Z" fill="#FF7A1A"/>
+        <path d="M32 12 Q42 -1 76 -1 Q102 -1 114 12 Z" fill="#17130F" opacity="0.55"/>
+        <circle cx="34" cy="52" r="15" fill="#0A0908"/>
+        <circle cx="34" cy="52" r="6" fill="#7A6E60"/>
+        <circle cx="118" cy="52" r="15" fill="#0A0908"/>
+        <circle cx="118" cy="52" r="6" fill="#7A6E60"/>
+        <rect x="138" y="26" width="8" height="8" rx="2" fill="#FBF3E9"/>
+        <rect x="4" y="26" width="8" height="8" rx="2" fill="#FF4433"/>
+      </g>
+
+      <!-- motion lines -->
+      <line x1="40" y1="420" x2="90" y2="420" stroke="#FFA24D" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
+      <line x1="55" y1="435" x2="95" y2="435" stroke="#FFA24D" stroke-width="4" stroke-linecap="round" opacity="0.4"/>
+    </svg>
+
+    <div class="tagline">
+      <strong>Every vehicle, tracked from gate to gate.</strong>
+      Real-time slot occupancy, entry and exit logging, and automatic fee calculation — all from one dashboard.
+    </div>
+  </div>
+
+  <div class="login-form-panel">
+    <div class="login-card">
+      <div class="brand-mark">P</div>
+      <h1>Student registration</h1>
+      <p class="sub">ParkDesk — register to use the parking system</p>
+
+      <div id="alert" class="alert alert-error"></div>
+
+      <form id="registerForm" novalidate>
+        <div class="field">
+          <label for="fullName">Full name</label>
+          <input type="text" id="fullName" autocomplete="name" maxlength="60" />
+          <div class="field-error"></div>
+        </div>
+        <div class="field" style="margin-top:14px;">
+          <label for="studentId">Student ID</label>
+          <input type="text" id="studentId" maxlength="15" placeholder="5-15 letters or numbers" style="text-transform:uppercase;" />
+          <div class="field-error"></div>
+        </div>
+        <div class="field" style="margin-top:14px;">
+          <label for="email">Email</label>
+          <input type="email" id="email" autocomplete="email" maxlength="100" />
+          <div class="field-error"></div>
+        </div>
+        <div class="field" style="margin-top:14px;">
+          <label for="phone">Mobile number</label>
+          <input type="tel" id="phone" autocomplete="tel" maxlength="10" inputmode="numeric" placeholder="10-digit number" />
+          <div class="field-error"></div>
+        </div>
+        <div class="field" style="margin-top:14px;">
+          <label for="password">Password</label>
+          <input type="password" id="password" autocomplete="new-password" maxlength="64" placeholder="Min. 8 characters, letters + numbers" />
+          <div class="field-error"></div>
+        </div>
+        <div class="field" style="margin-top:14px;">
+          <label for="confirm">Confirm password</label>
+          <input type="password" id="confirm" autocomplete="new-password" maxlength="64" />
+          <div class="field-error"></div>
+        </div>
+        <button class="btn btn-primary" type="submit" id="submitBtn">Register</button>
+      </form>
+
+      <p class="hint">Already have an account? <a class="form-link" href="login.html">Sign in</a></p>
+    </div>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script>
+  const form = document.getElementById("registerForm");
+  const alertEl = document.getElementById("alert");
+  const btn = document.getElementById("submitBtn");
+
+  // Already logged in? skip straight to the dashboard.
+  if (getToken()) window.location.href = "dashboard.html";
+
+  const rules = {
+    fullName: (v) => /^[A-Za-z][A-Za-z .'-]{1,59}$/.test(v) ? "" : "Enter a valid name (2-60 letters).",
+    studentId: (v) => /^[A-Za-z0-9]{5,15}$/.test(v) ? "" : "Student ID must be 5-15 letters/numbers, no spaces.",
+    email: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? "" : "Enter a valid email address.",
+    phone: (v) => /^[6-9][0-9]{9}$/.test(v) ? "" : "Enter a valid 10-digit mobile number starting with 6-9.",
+    password: (v) => /^(?=.*[A-Za-z])(?=.*[0-9]).{8,64}$/.test(v) ? "" : "Min. 8 characters with at least one letter and one number.",
+    confirm: (v) => v === document.getElementById("password").value ? "" : "Passwords do not match."
+  };
+
+  function checkField(id) {
+    const input = document.getElementById(id);
+    const value = id === "password" || id === "confirm" ? input.value : input.value.trim();
+    const msg = rules[id](value);
+    const wrap = input.closest(".field");
+    wrap.classList.toggle("invalid", !!msg);
+    wrap.querySelector(".field-error").textContent = msg;
+    return !msg;
+  }
+
+  Object.keys(rules).forEach((id) => {
+    const el = document.getElementById(id);
+    el.addEventListener("blur", () => checkField(id));
+    el.addEventListener("input", () => {
+      if (el.closest(".field").classList.contains("invalid")) checkField(id);
+    });
+  });
+  // digits only for phone
+  document.getElementById("phone").addEventListener("input", (e) => {
+    e.target.value = e.target.value.replace(/\D/g, "");
+  });
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    hideAlert(alertEl);
+
+    const allValid = Object.keys(rules).map(checkField).every(Boolean);
+    if (!allValid) return showAlert(alertEl, "Please fix the highlighted fields.");
+
+    btn.disabled = true;
+    btn.textContent = "Registering...";
+    try {
+      const res = await fetch(API_BASE + "/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullName: document.getElementById("fullName").value.trim(),
+          studentId: document.getElementById("studentId").value.trim(),
+          email: document.getElementById("email").value.trim(),
+          phone: document.getElementById("phone").value.trim(),
+          password: document.getElementById("password").value
+        })
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || "Registration failed.");
+
+      showAlert(alertEl, "Registration successful! Redirecting to sign in...", "success");
+      form.reset();
+      setTimeout(() => (window.location.href = "login.html"), 1500);
+    } catch (err) {
+      showAlert(alertEl, err.message);
+      btn.disabled = false;
+      btn.textContent = "Register";
+    }
+  });
+</script>
+</body>
+</html>
