@@ -1,7 +1,7 @@
 // Shared helpers used across all pages.
 // Auth token is kept in localStorage after a successful login.
 
-const API_BASE = "/api";
+const API_BASE = "https://parking-management-backend-4kt3.onrender.com/api";
 
 function getToken() {
   return localStorage.getItem("pms_token");
